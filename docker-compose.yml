@@ -2,47 +2,67 @@ version: '3'
 
 services:
 
-  frontend:
-    build: ./frontend
-    container_name: services-frontend
+  # frontend:
+  #   build: ./frontend
+  #   container_name: services-frontend
+  #   ports:
+  #     - "5173:5173"
+  #   volumes:
+  #     - './frontend:/home/app/frontend'
+  #   stdin_open: true
+  #   tty: true
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - PERN-networks
+
+  backend:
+    build: ./backend
+    container_name: services-backend
     ports:
-      - "5173:5173"
+      - "3002:3002"
     volumes:
-      - D:\PlayGround\PERN_Stack\frontend:/app
+      - './backend:/home/app/backend'
     stdin_open: true
     tty: true
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
     networks:
       - PERN-networks
 
-  db:
-    image: postgres
-    restart: always
-    container_name: services-db
-    environment:
-      POSTGRES_PASSWORD: root
-      PGDATA: /var/lib/postgresql/data/
-    volumes:
-      - D:\PlayGround\PERN_Stack\postgres-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    networks:
-      - PERN-networks
+  # db:
+  #   image: postgres
+  #   restart: always
+  #   container_name: services-db
+  #   environment:
+  #     POSTGRES_PASSWORD: root
+  #     PGDATA: /var/lib/postgresql/data/
+  #   volumes:
+  #     - application-data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - PERN-networks
 
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: root
-    ports:
-      - "8080:80"
-    depends_on:
-      - db
-    networks:
-      - PERN-networks
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+  #     PGADMIN_DEFAULT_PASSWORD: root
+  #   ports:
+  #     - "8080:80"
+  #   volumes:
+  #     - pg-admin-data:/var/lib/pgadmin
+  #   depends_on:
+  #     - db
+  #   networks:
+  #     - PERN-networks
 
 networks:
   PERN-networks:
     driver: bridge
+
+volumes:
+  application-data:
+  pg-admin-data:

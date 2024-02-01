@@ -1,7 +1,7 @@
 FROM node:20-alpine
 
 # giving specifc path is better then giving just '/path'
-WORKDIR /home/app/frontend
+WORKDIR /home/app/backend
 
 # Copy only the package.json and package-lock.json first to leverage Docker layer caching
 COPY ./package.json /package.json
@@ -13,6 +13,6 @@ RUN npm install
 COPY . .
 
 # Command to run the application
-CMD ["npm", "run", "dev", "--debug"]
+CMD ["npm", "run", "dev-node", "--debug"]
 
 # CMD ["tail","-f","/dev/null"]
